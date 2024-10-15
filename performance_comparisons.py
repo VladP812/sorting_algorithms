@@ -70,7 +70,7 @@ def compare_sorting_algorithms(algorithms: list[Callable], min_list_length: int,
 if __name__ == "__main__":
     algorithms: list[Callable] = [quick_sort_bad, quick_sort, insertion_sort]
 
-    results = compare_sorting_algorithms(algorithms, 2, 350, 85)
+    results = compare_sorting_algorithms(algorithms, 2, 350, 120)
     
     with open(f"measurments/performance_comparisons_{datetime.datetime.now()}.json", 
               "w") as file:
