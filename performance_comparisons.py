@@ -1,6 +1,6 @@
 import datetime
 from insertionsort import insertion_sort
-from quicksort import quick_sort1, quick_sort2
+from quicksort import quick_sort_bad, quick_sort
 
 import random
 from typing import Callable
@@ -9,8 +9,45 @@ from collections import defaultdict
 import json
 
 import matplotlib.pyplot as plt
-import numpy as np
 
+
+"""
+Measures sorting performance of all sorting algorithms provided. Measures are conducted
+on list of different, growing sizes.
+
+@arguments:
+    algorithms: a list containing function pointers, essentially the sorting algorithms
+    perforamnce of which we are measuring.
+    min_list_length: starting size of generated lists (inclusive)
+    max_list_length: maximum size of generated lists (EXCLUSIVE)
+    number_of_lists: how many lists of each size to generate and conduct measurments on
+   
+@returns:
+    dictionary containing AVERAGE timings (in nanoseconds) each algorithm scored
+    for each size of the list it was measured on.
+
+    Format:
+        { 1: {"quicksort" : 12345, "insertionsort" : 987655},
+          2: ...,
+         ...
+         max_list_length - 1 : {"quicksort": 852924, "insertionsort" : 9798727}
+
+        where 1, 2, 3 ... up to max_list_length - 1 are sizes of the lists
+
+@example
+    algs = [quicksort, insertionsort]
+    compare_sorting_algorithms(algs, 2, 300, 85)
+
+    Deconstruction:
+    Each algortihm's performance will be measured on lists of different, growing sizes 
+    starting from size=2. And for each size, there will be 85 different lists generated
+    so the measurments obtained is more smooth and generic.
+    In total, there will be 25245 measurments conducted for each algorithms.
+    (299-2) * 85 = 25245 ; 299 instead of 300 since value 300 is EXCLUDED.
+
+    Generated lists are identical for each algortihms, since the random seed is
+    being reset for each algorithm, hence generated random values will be the same.
+"""
 def compare_sorting_algorithms(algorithms: list[Callable], min_list_length: int,
                                max_list_length: int, number_of_lists: int):
     results = defaultdict(dict)
@@ -23,7 +60,6 @@ def compare_sorting_algorithms(algorithms: list[Callable], min_list_length: int,
             total_time = 0
             for _ in range(number_of_lists):  # generate 100 arrays of each length
                 arr = [random.randint(-30, 30) for _ in range(i)]
-                arr_tuple = tuple(arr)  # convert to tuple to use as dictionary key
                 start_time = perf_counter_ns()
                 algorithm(arr.copy())
                 end_time = perf_counter_ns()
@@ -32,7 +68,8 @@ def compare_sorting_algorithms(algorithms: list[Callable], min_list_length: int,
     return results
 
 if __name__ == "__main__":
-    algorithms: list[Callable] = [quick_sort1, quick_sort2, insertion_sort]
+    algorithms: list[Callable] = [quick_sort_bad, quick_sort, insertion_sort]
+
     results = compare_sorting_algorithms(algorithms, 2, 350, 85)
     
     with open(f"measurments/performance_comparisons_{datetime.datetime.now()}.json", 
@@ -69,5 +106,6 @@ if __name__ == "__main__":
             current_color = 0
             current_line_type += 1
     plt.legend()
+    #plot.show()
     plt.savefig(f"measurments/performance_comparisons_{datetime.datetime.now()}.jpeg",
                 dpi=200)

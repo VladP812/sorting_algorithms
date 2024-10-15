@@ -1,5 +1,13 @@
+"""
+Insertion sort implementation
+"""
+
 import random
 
+
+"""
+Very basic and simple implementation of insertionsort.
+"""
 def insertion_sort(arr):
     for i in range(1, len(arr)):
         key = arr[i]
@@ -8,8 +16,6 @@ def insertion_sort(arr):
             arr[j] = arr[j-1]
             j -= 1
         arr[j] = key
-    return arr
-
 
 if __name__ == "__main__":
     arr = list(range(1,1000))
