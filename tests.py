@@ -13,7 +13,7 @@ def test_sorting_algorithm(algorithm: Callable):
             print("Array before sorting: " + str(listt))
             algorithm(listt)
             listt_copy.sort()
-            print("Array sorted by quicksort: " + str(listt))
+            print(f"Array sorted by {algorithm.__name__}: " + str(listt))
             print(f"Is array sorted correctly?: {listt == listt_copy}")
             if listt != listt_copy:
                 print("Array is incorrectly sorted!")
