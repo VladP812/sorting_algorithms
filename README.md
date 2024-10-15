@@ -1,7 +1,19 @@
 Collection of sorting algorithms implemented in Python
 =
 
-<h4>How to run:</h4>
+<h4>How to debug (PyCharm):</h4>
+
+- Clone repository 
+- Create a new project in PyCharm pointing to root direcory of cloned repository
+- Open ```run.py``` file
+- With ```run.py``` file opened press CONTROL+SHIFT+F10 - this will automatically add a configuration so you can easily run the file
+- Place breakpoints
+- Press debug button to run the file in the debug mode (button with a bug icon next to the play (run) button)
+- Follow detailed instructions in the ```run.py``` file
+---
+
+
+<h4>How to run performance comparisons:</h4>
 
 - Clone the repository
 - Run ```pip install -r requirements.txt``` (better do it in a new virtual environment)
